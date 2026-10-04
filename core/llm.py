@@ -14,9 +14,10 @@ def build_llm(api_key: str, model: str = DEFAULT_MODEL, temperature: float = 0.2
     groq_model = normalize_groq_model(model)
     crew_model = f"custom_openai/{groq_model}"
 
-    return LLM(
-        model=crew_model,
-        base_url=GROQ_BASE_URL,
-        api_key=api_key.strip(),
-        temperature=temperature,
-    )
+return LLM(
+    model=groq_model,
+    custom_openai=True,
+    base_url="https://api.groq.com/openai/v1",
+    api_key=api_key.strip(),
+    temperature=temperature,
+)
