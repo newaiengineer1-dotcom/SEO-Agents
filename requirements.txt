@@ -1,0 +1,7 @@
+streamlit>=1.40,<2
+# CrewAI with native OpenAI-compatible provider support
+crewai[openai]==1.15.17
+openai>=1.109.0,<3
+requests>=2.32.3,<3
+beautifulsoup4>=4.13.0,<5
+lxml>=5.3.0,<7
