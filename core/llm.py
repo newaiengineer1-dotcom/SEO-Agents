@@ -43,10 +43,10 @@ def build_groq_llm(
     if not key:
         raise ValueError("Groq API key is required.")
 
-    return LLM(
-        model=normalize_groq_model(model),
-        custom_openai=True,
-        base_url=GROQ_BASE_URL,
-        api_key=key,
-        temperature=temperature,
-    )
+return LLM(
+    model=groq_model,
+    custom_openai=True,
+    base_url="https://api.groq.com/openai/v1",
+    api_key=api_key.strip(),
+    temperature=temperature,
+)
