@@ -1,6 +1,6 @@
 from __future__ import annotations
 import streamlit as st
-from core.config import DEFAULT_MODEL
+from core.config import DEFAULT_MODEL, SUPPORTED_MODELS
 from utils.web_audit import audit_url
 from agents.seo_crew import run_seo_crew
 from utils.reporting import build_report
@@ -17,6 +17,13 @@ st.markdown("""
 .card{padding:1rem;border:1px solid var(--line);border-radius:16px;background:var(--card);height:100%}
 .small{color:var(--muted);font-size:.85rem}.ok{color:#67e8f9}.warn{color:#fbbf24}.bad{color:#fb7185}
 .stButton>button{border-radius:11px;border:1px solid #2e5d78;background:#12324a;color:#fff;font-weight:700}
+/* Premium dark inputs: prevent browser/autofill yellow and keep text white. */
+div[data-baseweb="input"] > div, div[data-baseweb="textarea"] > div, div[data-baseweb="select"] > div{background:#0d1b2a !important;border:1px solid #2a4660 !important;border-radius:10px !important;box-shadow:none !important}
+div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea{background:#0d1b2a !important;color:#ffffff !important;-webkit-text-fill-color:#ffffff !important;caret-color:#55d6be !important}
+div[data-baseweb="input"] input::placeholder, div[data-baseweb="textarea"] textarea::placeholder{color:#91a7bc !important;opacity:1 !important}
+div[data-baseweb="input"] input:-webkit-autofill, div[data-baseweb="input"] input:-webkit-autofill:hover, div[data-baseweb="input"] input:-webkit-autofill:focus, div[data-baseweb="textarea"] textarea:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #0d1b2a inset !important;box-shadow:0 0 0 1000px #0d1b2a inset !important;-webkit-text-fill-color:#ffffff !important}
+label, label p{color:#edf6ff !important}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -25,7 +32,7 @@ st.markdown('<div class="hero"><h1>🚀 SEO Premium Agent</h1><p>CrewAI multi-ag
 with st.sidebar:
     st.header("⚙️ AI Configuration")
     api_key = st.text_input("Groq API Key", type="password", help="Used only for this Streamlit session; do not paste it into GitHub code.")
-    model = st.selectbox("Groq model", ["openai/gpt-oss-20b", "openai/gpt-oss-120b", "llama-3.3-70b-versatile"], index=0)
+    model = st.selectbox("Groq model", list(SUPPORTED_MODELS), index=0)
     st.caption("The app uses CrewAI's custom OpenAI-compatible endpoint mode for Groq.")
 
 c1,c2 = st.columns([1.4,1])
